@@ -136,7 +136,9 @@ const Profile = () => {
                 const refreshRes = await fetch(`${API_BASE}/user/address`, { headers: { 'Authorization': `Bearer ${token}` } });
                 if (refreshRes.ok) setAddresses(await refreshRes.json());
             } else {
-                alert("Failed to save address. Please try again.");
+                let err = await res.text();
+                try { const parsed = JSON.parse(err); if (Array.isArray(parsed.fieldErrors)) { err = parsed.fieldErrors.map(e=>e.defaultMessage).join(', '); } else if (parsed.errors && typeof parsed.errors === 'object') { err = Object.values(parsed.errors).join(', '); } else { err = parsed.message || parsed.error || err; } } catch(e) {}
+                alert(`Failed to save address: ${err}`);
             }
         } catch (err) {
             console.error("Address save failed:", err);

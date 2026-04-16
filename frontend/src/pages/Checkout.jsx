@@ -62,7 +62,9 @@ const Checkout = () => {
                     if (newAddr) setSelectedAddress(newAddr.id);
                 }
             } else {
-                alert("Failed to add address. Please try again.");
+                let err = await res.text();
+                try { const parsed = JSON.parse(err); if (Array.isArray(parsed.fieldErrors)) { err = parsed.fieldErrors.map(e=>e.defaultMessage).join(', '); } else if (parsed.errors && typeof parsed.errors === 'object') { err = Object.values(parsed.errors).join(', '); } else { err = parsed.message || parsed.error || err; } } catch(e) {}
+                alert(`Failed to add address: ${err}`);
             }
         } catch (err) {
             console.error("Address save failed:", err);
