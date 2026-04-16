@@ -41,3 +41,7 @@ pnpm-debug.log*
 .vscode/
 .DS_Store
 Thumbs.db
+
+# Temporarily on hold / data
+uploads/
+restaurant frontend temporary on hold/
