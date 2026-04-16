@@ -91,11 +91,11 @@ export const AuthProvider = ({ children }) => {
             });
 
             if (!response.ok) {
-                // Sometime the error might not be a valid json, we need to handle it.
                 let errorMessage = 'Failed to send OTP';
                 try {
                     const errorData = await response.json();
-                    errorMessage = errorData.message || errorMessage;
+                    if (errorData.errors && typeof errorData.errors === 'object') { errorMessage = Object.values(errorData.errors).join(', '); }
+                    else { errorMessage = errorData.message || errorMessage; }
                 } catch(e) {}
                 throw new Error(errorMessage);
             }
@@ -125,7 +125,8 @@ export const AuthProvider = ({ children }) => {
                 let errorMessage = 'OTP verification failed';
                 try {
                     const errorData = await response.json();
-                    errorMessage = errorData.message || errorMessage;
+                    if (errorData.errors && typeof errorData.errors === 'object') { errorMessage = Object.values(errorData.errors).join(', '); }
+                    else { errorMessage = errorData.message || errorMessage; }
                 } catch(e) {}
                 throw new Error(errorMessage);
             }

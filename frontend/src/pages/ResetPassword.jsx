@@ -49,7 +49,9 @@ const ResetPassword = () => {
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.message || 'Failed to reset password');
+                let errorMsg = errorData.message || 'Failed to reset password';
+                if (errorData.errors && typeof errorData.errors === 'object') { errorMsg = Object.values(errorData.errors).join(', '); }
+                throw new Error(errorMsg);
             }
 
             const data = await response.text(); 

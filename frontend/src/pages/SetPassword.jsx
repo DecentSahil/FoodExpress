@@ -28,7 +28,9 @@ const SetPassword = () => {
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.message || 'Failed to set password');
+                let errorMsg = errorData.message || 'Failed to set password';
+                if (errorData.errors && typeof errorData.errors === 'object') { errorMsg = Object.values(errorData.errors).join(', '); }
+                throw new Error(errorMsg);
             }
 
             // The backend returns ResponseEntity.ok("Password set successfully...")

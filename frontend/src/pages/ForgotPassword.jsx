@@ -26,7 +26,9 @@ const ForgotPassword = () => {
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.message || 'Failed to send reset link');
+                let errorMsg = errorData.message || 'Failed to send reset link';
+                if (errorData.errors && typeof errorData.errors === 'object') { errorMsg = Object.values(errorData.errors).join(', '); }
+                throw new Error(errorMsg);
             }
 
             const data = await response.text(); 
