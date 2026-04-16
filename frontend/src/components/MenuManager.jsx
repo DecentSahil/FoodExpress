@@ -126,7 +126,8 @@ const MenuManager = () => {
                 closeModal();
                 fetchProducts();
             } else {
-                const err = await response.text();
+                let err = await response.text();
+                try { const parsed = JSON.parse(err); err = parsed.message || parsed.error || err; } catch(e) {}
                 alert(`Failed to add product: ${err}`);
             }
         } catch (error) {
@@ -147,7 +148,8 @@ const MenuManager = () => {
                 closeModal();
                 fetchProducts();
             } else {
-                const err = await response.text();
+                let err = await response.text();
+                try { const parsed = JSON.parse(err); err = parsed.message || parsed.error || err; } catch(e) {}
                 alert(`Failed to delete: ${err}`);
             }
         } catch (error) {
