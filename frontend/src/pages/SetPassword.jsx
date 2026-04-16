@@ -29,7 +29,8 @@ const SetPassword = () => {
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
                 let errorMsg = errorData.message || 'Failed to set password';
-                if (errorData.errors && typeof errorData.errors === 'object') { errorMsg = Object.values(errorData.errors).join(', '); }
+                if (Array.isArray(errorData.fieldErrors)) { errorMsg = errorData.fieldErrors.map(e => e.defaultMessage).join(', '); }
+                else if (errorData.errors && typeof errorData.errors === 'object') { errorMsg = Object.values(errorData.errors).join(', '); }
                 throw new Error(errorMsg);
             }
 

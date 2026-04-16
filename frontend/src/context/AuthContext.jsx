@@ -31,8 +31,9 @@ export const AuthProvider = ({ children }) => {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                let errorMsg = errorData.message || 'Login failed';
-                if (errorData.errors && typeof errorData.errors === 'object') { errorMsg = Object.values(errorData.errors).join(', '); }
+                let errorMsg = errorData.message || 'Error occurred';
+                if (Array.isArray(errorData.fieldErrors)) { errorMsg = errorData.fieldErrors.map(e => e.defaultMessage).join(', '); }
+                else if (errorData.errors && typeof errorData.errors === 'object') { errorMsg = Object.values(errorData.errors).join(', '); }
                 throw new Error(errorMsg);
             }
 
@@ -64,7 +65,8 @@ export const AuthProvider = ({ children }) => {
             if (!response.ok) {
                 const errorData = await response.json();
                 let errorMsg = errorData.message || 'Registration failed';
-                if (errorData.errors && typeof errorData.errors === 'object') { errorMsg = Object.values(errorData.errors).join(', '); }
+                if (Array.isArray(errorData.fieldErrors)) { errorMsg = errorData.fieldErrors.map(e => e.defaultMessage).join(', '); }
+                else if (errorData.errors && typeof errorData.errors === 'object') { errorMsg = Object.values(errorData.errors).join(', '); }
                 throw new Error(errorMsg);
             }
 
@@ -94,7 +96,8 @@ export const AuthProvider = ({ children }) => {
                 let errorMessage = 'Failed to send OTP';
                 try {
                     const errorData = await response.json();
-                    if (errorData.errors && typeof errorData.errors === 'object') { errorMessage = Object.values(errorData.errors).join(', '); }
+                    if (Array.isArray(errorData.fieldErrors)) { errorMessage = errorData.fieldErrors.map(e => e.defaultMessage).join(', '); }
+                    else if (errorData.errors && typeof errorData.errors === 'object') { errorMessage = Object.values(errorData.errors).join(', '); }
                     else { errorMessage = errorData.message || errorMessage; }
                 } catch(e) {}
                 throw new Error(errorMessage);
@@ -125,7 +128,8 @@ export const AuthProvider = ({ children }) => {
                 let errorMessage = 'OTP verification failed';
                 try {
                     const errorData = await response.json();
-                    if (errorData.errors && typeof errorData.errors === 'object') { errorMessage = Object.values(errorData.errors).join(', '); }
+                    if (Array.isArray(errorData.fieldErrors)) { errorMessage = errorData.fieldErrors.map(e => e.defaultMessage).join(', '); }
+                    else if (errorData.errors && typeof errorData.errors === 'object') { errorMessage = Object.values(errorData.errors).join(', '); }
                     else { errorMessage = errorData.message || errorMessage; }
                 } catch(e) {}
                 throw new Error(errorMessage);

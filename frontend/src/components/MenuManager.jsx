@@ -127,7 +127,7 @@ const MenuManager = () => {
                 fetchProducts();
             } else {
                 let err = await response.text();
-                try { const parsed = JSON.parse(err); if (parsed.errors && typeof parsed.errors === 'object') { err = Object.values(parsed.errors).join(', '); } else { err = parsed.message || parsed.error || err; } } catch(e) {}
+                try { const parsed = JSON.parse(err); if (Array.isArray(parsed.fieldErrors)) { err = parsed.fieldErrors.map(e=>e.defaultMessage).join(', '); } else if (parsed.errors && typeof parsed.errors === 'object') { err = Object.values(parsed.errors).join(', '); } else { err = parsed.message || parsed.error || err; } } catch(e) {}
                 alert(`Failed to add product: ${err}`);
             }
         } catch (error) {
@@ -149,7 +149,7 @@ const MenuManager = () => {
                 fetchProducts();
             } else {
                 let err = await response.text();
-                try { const parsed = JSON.parse(err); if (parsed.errors && typeof parsed.errors === 'object') { err = Object.values(parsed.errors).join(', '); } else { err = parsed.message || parsed.error || err; } } catch(e) {}
+                try { const parsed = JSON.parse(err); if (Array.isArray(parsed.fieldErrors)) { err = parsed.fieldErrors.map(e=>e.defaultMessage).join(', '); } else if (parsed.errors && typeof parsed.errors === 'object') { err = Object.values(parsed.errors).join(', '); } else { err = parsed.message || parsed.error || err; } } catch(e) {}
                 alert(`Failed to delete: ${err}`);
             }
         } catch (error) {
