@@ -253,7 +253,8 @@ public class AuthServiceImpl implements AuthService {
 
         authUserRepository.save(user);
 
-        String link = "http://localhost:5173/reset-password?token=" + token;
+        String frontendUrl = System.getenv("FRONTEND_URL") != null ? System.getenv("FRONTEND_URL") : "http://localhost:5173";
+        String link = frontendUrl + "/reset-password?token=" + token;
 
         String message = """
         <h3>Reset Your Password</h3>

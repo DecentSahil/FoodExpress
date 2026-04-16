@@ -66,12 +66,13 @@ public class RestaurantServiceImpl implements RestaurantService {
     public RestaurantResponse approveRestaurant(UUID id) {
         // Save in its own transaction FIRST, then notify via Kafka
         Restaurant approved = approveAndSave(id);
+        String frontendUrl = System.getenv("FRONTEND_URL") != null ? System.getenv("FRONTEND_URL") : "http://localhost:5173";
         String body = """
             <h1>Successfully Verified</h1>
             <h4>Set Password</h4>
             <p>Use the link below to set your password:</p>
-            <a href="http://localhost:5173/set-password">Set Password</a>
-        """;
+            <a href="%s/set-password">Set Password</a>
+        """.formatted(frontendUrl);
 
         try {
             notificationProducer.sendEmail(
