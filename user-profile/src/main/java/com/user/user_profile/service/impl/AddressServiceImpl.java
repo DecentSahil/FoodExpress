@@ -48,16 +48,16 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public AddressUpdationRequest addNewAddress(String email, AddressUpdationRequest addressUpdationRequest){
+    public Address addNewAddress(String email, com.user.user_profile.dto.AddressCreateRequest addressCreateRequest){
         User user = userRepository.findByEmail(email).orElseThrow(()->new UserNotFoundException("Invalid User"));
         Address address = new Address();
-        address.setLine1(addressUpdationRequest.line1());
-        address.setName(addressUpdationRequest.name());
-        address.setCity(addressUpdationRequest.city());
-        address.setState(addressUpdationRequest.state());
-        address.setPincode(addressUpdationRequest.pincode());
+        address.setLine1(addressCreateRequest.line1());
+        address.setName(addressCreateRequest.name());
+        address.setCity(addressCreateRequest.city());
+        address.setState(addressCreateRequest.state());
+        address.setPincode(addressCreateRequest.pincode());
         address.setEmail(email);
-        address.setNumber(addressUpdationRequest.number());
+        address.setNumber(addressCreateRequest.number());
         
         // If it's the user's first address, make it default automatically
         List<Address> existingAddresses = addressRepository.findByEmail(email);
@@ -65,8 +65,7 @@ public class AddressServiceImpl implements AddressService {
             address.setIsDefault(true);
         }
         
-        Address savedAddress = addressRepository.save(address);
-        return new AddressUpdationRequest(savedAddress.getId(),savedAddress.getName(), savedAddress.getNumber(), savedAddress.getLine1(), savedAddress.getCity(), savedAddress.getState(), savedAddress.getPincode());
+        return addressRepository.save(address);
     }
 
     @Override

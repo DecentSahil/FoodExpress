@@ -14,7 +14,7 @@ public interface AddressService {
 
     void updateUserAddress(String email, AddressUpdationRequest addressUpdationRequest);
 
-    AddressUpdationRequest addNewAddress(String email, AddressUpdationRequest addressUpdationRequest);
+    Address addNewAddress(String email, com.user.user_profile.dto.AddressCreateRequest addressCreateRequest);
 
     void deleteUserAddress(String email, UUID addressId);
     

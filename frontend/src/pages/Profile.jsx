@@ -123,7 +123,7 @@ const Profile = () => {
         e.preventDefault();
         try {
             const method = editingAddress ? 'PUT' : 'POST';
-            const payload = { ...addressForm, id: editingAddress };
+            const payload = editingAddress ? { ...addressForm, id: editingAddress } : { ...addressForm };
             const res = await fetch(`${API_BASE}/user/address`, {
                 method,
                 headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },

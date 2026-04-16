@@ -39,11 +39,11 @@ public class AddressController {
     }
 
     @PostMapping
-    public ResponseEntity<AddressUpdationRequest> addNewAddress(
+    public ResponseEntity<Address> addNewAddress(
             @RequestHeader("X-User-Email") @NotBlank @Email String email,
-            @RequestBody @Valid AddressUpdationRequest addressUpdationRequest){
+            @RequestBody @Valid com.user.user_profile.dto.AddressCreateRequest addressCreateRequest){
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(addressService.addNewAddress(email,addressUpdationRequest));
+                .body(addressService.addNewAddress(email,addressCreateRequest));
     }
 
     @PutMapping
