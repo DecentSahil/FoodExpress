@@ -4,21 +4,25 @@ import MenuManager from '../components/MenuManager';
 import OrderStatus from './OrderStatus';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
-import { Navigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import './RestaurantDashboard.css';
 
 const RestaurantDashboard = () => {
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
     const { isDarkMode, toggleTheme } = useTheme();
     const [activeTab, setActiveTab] = useState('menu');
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     // Protect route
-    if (!user || !user.role || user.role.toLowerCase() !== 'restaurant') {
+    if (!user || !user.role || (user.role.toLowerCase() !== 'restaurant' && !user.role.toLowerCase().includes('restaurant'))) {
         return <Navigate to="/" />;
     }
 
-
+    const handleLogout = () => {
+        logout();
+        navigate('/login');
+    };
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -59,6 +63,11 @@ const RestaurantDashboard = () => {
                     <li className={activeTab === 'orders' ? 'active' : ''}>
                         <button onClick={() => handleTabChange('orders')}>
                             <span className="sidebar-icon">🧾</span> Orders
+                        </button>
+                    </li>
+                    <li className="sidebar-logout-item">
+                        <button onClick={handleLogout} className="sidebar-logout-btn">
+                            <span className="sidebar-icon">🚪</span> Logout
                         </button>
                     </li>
                 </ul>

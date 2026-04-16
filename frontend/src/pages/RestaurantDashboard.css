@@ -119,6 +119,17 @@
 }
 
 /* ── Sidebar Footer ─────────────────────── */
+.sidebar-logout-item {
+    margin-top: 20px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 12px !important;
+}
+
+.sidebar-logout-btn:hover {
+    background: #fff5f5 !important;
+    color: #e23744 !important;
+}
+
 .sidebar-footer {
     padding: 16px;
     border-top: 1px solid var(--border-color);
