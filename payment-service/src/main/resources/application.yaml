@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: payment-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/payment_db
+    username: root
+    password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+razorpay:
+  key: rzp_test_xxxxxx
+  secret: xxxxxxxx
+server:
+  port: 8088
+
+eureka:
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+Stripe:
+  secret:
+    key : sk_test_YOUR_STRIPE_SECRET_KEY

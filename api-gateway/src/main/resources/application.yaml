@@ -1,0 +1,96 @@
+spring:
+  main:
+    web-application-type: reactive
+
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:5173"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - PATCH
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+      routes:
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/auth/**
+
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user/**
+
+        - id: cart-service
+          uri: lb://CART-SERVICE
+          predicates:
+            - Path=/cart/**
+
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/orders/**
+
+        - id: restaurant-admin
+          uri: lb://RESTAURANT-SERVICE
+          predicates:
+            - Path=/restaurant/admin/**
+
+        - id: restaurant-public
+          uri: lb://RESTAURANT-SERVICE
+          predicates:
+            - Path=/restaurant/public/**
+
+        - id: restaurant-static
+          uri: lb://RESTAURANT-SERVICE
+          predicates:
+            - Path=/uploads/restaurants/**
+
+        - id: product-static
+          uri: lb://RESTAURANT-SERVICE
+          predicates:
+            - Path=/uploads/products/**
+
+        - id: restaurant-service
+          uri: lb://RESTAURANT-SERVICE
+          predicates:
+            - Path=/restaurant/**
+
+        - id: user-static
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/uploads/userPhoto/**
+
+
+
+server:
+  port: ${SERVER_PORT:8080}
+
+secretKey: ${SECRET_KEY:my_super_secret_key_which_is_long_enough_for_hs256}
+
+eureka:
+  instance:
+    hostname: ${HOSTNAME:localhost}
+    prefer-ip-address: true
+
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://eureka-server:8761/eureka}
+
+logging:
+  level:
+    org:
+      springframework:
+        security: ${SECURITY_LOG_LEVEL:DEBUG}

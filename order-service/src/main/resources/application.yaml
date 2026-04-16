@@ -1,0 +1,33 @@
+server:
+  port: ${SERVER_PORT:8084}
+
+spring:
+  application:
+    name: ${SPRING_APPLICATION_NAME:ORDER-SERVICE}
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:kafka:29092}
+    producer:
+      key-serializer: ${KAFKA_KEY_SERIALIZER:org.apache.kafka.common.serialization.StringSerializer}
+      value-serializer: ${KAFKA_VALUE_SERIALIZER:org.springframework.kafka.support.serializer.JsonSerializer}
+    template:
+      default-topic: ${KAFKA_TOPIC:notification-topic}
+
+  datasource:
+    url: jdbc:mysql://${DB_HOST:mysql_db}:${DB_PORT:3306}/${DB_NAME:order_db}?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
+    username: ${DB_USER:root}
+    password: ${DB_PASSWORD:1234}
+
+  jpa:
+    hibernate:
+      ddl-auto: ${DDL_AUTO:update}
+    show-sql: ${SHOW_SQL:true}
+
+eureka:
+  instance:
+    hostname: ${EUREKA_INSTANCE_HOSTNAME:order-service}
+    prefer-ip-address: true
+
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://eureka-server:8761/eureka}

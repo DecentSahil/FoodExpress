@@ -1,0 +1,98 @@
+/* Products Page Styling */
+
+.products-container {
+    padding: 20px;
+}
+
+/* Card Improvements */
+.menu-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid var(--border-color);
+}
+
+.menu-card .card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.restaurant-tag {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: var(--bg-color);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* Badge Overrides for Menu Cards */
+.menu-card .veg-badge,
+.menu-card .non-veg-badge {
+    width: auto;
+    height: auto;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-right: 0;
+    line-height: normal;
+}
+
+.menu-card .veg-badge {
+    border: 1px solid var(--success-color);
+    color: var(--success-color);
+    background-color: transparent;
+}
+
+.menu-card .non-veg-badge {
+    border: 1px solid #d32f2f;
+    color: #d32f2f;
+    background-color: transparent;
+}
+
+.menu-card .veg-badge::after,
+.menu-card .non-veg-badge::after {
+    content: none;
+}
+
+/* Typography & Layout */
+.menu-card .card-title {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.menu-card .description {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+    flex-grow: 1;
+    line-height: 1.4;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+}

@@ -1,0 +1,40 @@
+
+
+server:
+  port: 5051
+
+
+
+spring:
+  application:
+    name: auth-app-dev-phase
+  datasource:
+    url: jdbc:mysql://localhost:3307/auth_app
+    username: "root"
+    password: "1234"
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    show-sql: true
+
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:THIS_IS_A_64_CHAR_SECRET_KEY_FOR_HS512_SIGNING_123456_dsakfbkwerfjkberfuioqrgfnuiadfbjweyvfbouehjafbuikjawedsfavodahuibjfeaoiahjdfvfbehjdvfb}
+    issuer: ${JWT_ISSUER:api.substring.com}
+    access-ttl-seconds: ${JWT_ACCESS_TTL_SECONDS:3600}
+    refresh-ttl-seconds: ${JWT_REFRESH_TTL_SECONDS:86400}
+    refresh-token-cookie-name: ${JWT_REFRESH_COOKIE_NAME:refreshToken}
+    cookie-secure: ${JWT_COOKIE_SECURE:true}
+    cookie-http-only: ${JWT_COOKIE_HTTP_ONLY:true}
+    cookie-same-site: ${JWT_COOKIE_SAME_SITE:lax}
+    cookie-domain: ${JWT_COOKIE_DOMAIN:.localhost}

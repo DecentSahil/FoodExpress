@@ -1,0 +1,251 @@
+/* RestaurantList.css — Premium Restaurant Listing */
+
+.rlist-page {
+    overflow-x: hidden;
+}
+
+/* ── Hero ────────────────────────────── */
+.rlist-hero {
+    position: relative;
+    padding: 52px 0 42px;
+    margin-top: -30px;
+    overflow: hidden;
+}
+
+.rlist-hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #1a0a0c 0%, #6b1a1a 60%, #e23744 100%);
+}
+
+.rlist-hero-inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.rlist-title {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: white;
+    margin: 0 0 8px;
+}
+
+.rlist-subtitle {
+    color: rgba(255,255,255,0.75);
+    margin: 0 0 28px;
+    font-size: 1rem;
+}
+
+.rlist-search-wrap {
+    position: relative;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.rlist-search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    pointer-events: none;
+}
+
+.rlist-search {
+    width: 100%;
+    padding: 16px 20px 16px 50px;
+    border: none;
+    border-radius: 14px;
+    font-size: 1rem;
+    background: white;
+    color: #1c1c1c;
+    outline: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    transition: box-shadow 0.2s;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.rlist-search:focus {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+/* ── Body ────────────────────────────── */
+.rlist-body {
+    padding-top: 28px;
+    padding-bottom: 60px;
+}
+
+.rlist-count {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin: 0 0 20px;
+}
+
+/* ── Loading ─────────────────────────── */
+.rlist-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 100px 20px;
+    color: var(--text-muted);
+}
+
+.rlist-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border-color);
+    border-top-color: #e23744;
+    border-radius: 50%;
+    animation: rlist-spin 0.8s linear infinite;
+}
+
+@keyframes rlist-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ── Empty State ─────────────────────── */
+.rlist-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--text-muted);
+}
+
+.rlist-empty-icon {
+    font-size: 3.5rem;
+    margin-bottom: 14px;
+}
+
+.rlist-empty h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin: 0 0 8px;
+}
+
+.rlist-empty p {
+    margin: 0 0 20px;
+    font-size: 0.9rem;
+}
+
+.rlist-clear-btn {
+    padding: 10px 24px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: inherit;
+}
+
+.rlist-clear-btn:hover {
+    background: #c0392b;
+}
+
+/* ── Card Grid ───────────────────────── */
+.rlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.rlist-card {
+    display: block;
+    text-decoration: none;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.rlist-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+}
+
+.rlist-card-img-wrap {
+    position: relative;
+    height: 190px;
+    overflow: hidden;
+    background: var(--border-color);
+}
+
+.rlist-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.rlist-card:hover .rlist-card-img {
+    transform: scale(1.06);
+}
+
+.rlist-card-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.35), transparent 55%);
+}
+
+.rlist-card-body {
+    padding: 18px;
+}
+
+.rlist-card-name {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text-color);
+    margin: 0 0 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.rlist-card-loc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin: 0 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.rlist-pin {
+    flex-shrink: 0;
+}
+
+.rlist-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.rlist-order-btn {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    transition: opacity 0.2s;
+}
+
+.rlist-card:hover .rlist-order-btn {
+    opacity: 0.75;
+}
+
+/* ── Responsive ──────────────────────── */
+@media (max-width: 600px) {
+    .rlist-title {
+        font-size: 1.6rem;
+    }
+
+    .rlist-grid {
+        grid-template-columns: 1fr;
+    }
+}
