@@ -179,6 +179,7 @@ services:
       - MYSQL_ROOT_HOST=%
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./init-scripts:/docker-entrypoint-initdb.d
     networks:
       - microservices-network
 

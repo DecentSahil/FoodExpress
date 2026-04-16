@@ -22,7 +22,7 @@ spring:
       default-topic: ${KAFKA_TOPIC:notification-topic}
 
   datasource:
-    url: jdbc:mysql://${DB_HOST:mysql_db}:${DB_PORT:3306}/${DB_NAME:restaurant_db}
+    url: jdbc:mysql://${DB_HOST:mysql_db}:${DB_PORT:3306}/${DB_NAME:restaurant_db}?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
     username: ${DB_USER:root}
     password: ${DB_PASSWORD:1234}
 

@@ -9,7 +9,7 @@ spring:
 
   datasource:
     # Points to 'mysql_db' container internally
-    url: jdbc:mysql://${DB_HOST:mysql_db}:${DB_PORT:3306}/${DB_NAME:user_db}
+    url: jdbc:mysql://${DB_HOST:mysql_db}:${DB_PORT:3306}/${DB_NAME:user_db}?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
     username: ${DB_USER}
     password: ${DB_PASSWORD}
 

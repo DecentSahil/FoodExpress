@@ -6,7 +6,7 @@ spring:
     name: ${SPRING_APPLICATION_NAME:CART-SERVICE}
 
   datasource:
-    url: jdbc:mysql://${DB_HOST:mysql_db}:${DB_PORT:3306}/${DB_NAME:cart_db}
+    url: jdbc:mysql://${DB_HOST:mysql_db}:${DB_PORT:3306}/${DB_NAME:cart_db}?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
 #    url: jdbc:mysql://localhost:3306/auth_db
     username: ${DB_USER:root}
     password: ${DB_PASSWORD:1234}
