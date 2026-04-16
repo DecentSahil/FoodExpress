@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public record AddressUpdationRequest(
 
-        @NotNull(message = "Id cannot be null")
+        // ID is now optional at the DTO level to prevent validation errors during creation
         UUID id,
 
         @NotBlank(message = "Name cannot be blank")
