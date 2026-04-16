@@ -31,7 +31,9 @@ export const AuthProvider = ({ children }) => {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(errorData.message || 'Login failed');
+                let errorMsg = errorData.message || 'Login failed';
+                if (errorData.errors && typeof errorData.errors === 'object') { errorMsg = Object.values(errorData.errors).join(', '); }
+                throw new Error(errorMsg);
             }
 
             const data = await response.json();
@@ -61,7 +63,9 @@ export const AuthProvider = ({ children }) => {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(errorData.message || 'Registration failed');
+                let errorMsg = errorData.message || 'Registration failed';
+                if (errorData.errors && typeof errorData.errors === 'object') { errorMsg = Object.values(errorData.errors).join(', '); }
+                throw new Error(errorMsg);
             }
 
             const data = await response.json();
