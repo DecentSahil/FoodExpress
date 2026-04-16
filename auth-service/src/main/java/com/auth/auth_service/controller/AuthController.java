@@ -40,7 +40,7 @@ public class AuthController {
     @PostMapping("/register/admin")
     public ResponseEntity<RegisterResponse> register1(
             @RequestBody @Valid RegisterRequest request) {
-        return authService.registerUser(request);
+        return authService.registerAdmin(request);
     }
 
     @PostMapping("/login")

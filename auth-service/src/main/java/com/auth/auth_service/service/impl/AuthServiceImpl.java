@@ -219,7 +219,7 @@ public class AuthServiceImpl implements AuthService {
 
 
     @Override
-    public ResponseEntity<RegisterResponse> registerUser(RegisterRequest request) {
+    public ResponseEntity<RegisterResponse> registerAdmin(RegisterRequest request) {
 
         AuthUser user = new AuthUser();
         user.setEmail(request.getEmail());

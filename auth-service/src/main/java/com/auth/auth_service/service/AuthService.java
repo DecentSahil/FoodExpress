@@ -16,7 +16,7 @@ public interface AuthService {
 
     void setRestaurantPassword(SetPasswordRequest request);
 
-    ResponseEntity<RegisterResponse> registerUser(RegisterRequest request);
+    ResponseEntity<RegisterResponse> registerAdmin(RegisterRequest request);
 
     void forgotPassword(String email);
 

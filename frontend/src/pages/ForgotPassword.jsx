@@ -15,25 +15,33 @@ const ForgotPassword = () => {
         setMessage('');
         setLoading(true);
 
+        const normalizedEmail = email.trim().toLowerCase();
+
         try {
             const response = await fetch(`${API_BASE}/auth/forgot-password`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email }),
+                body: JSON.stringify({ email: normalizedEmail }),
             });
 
             if (!response.ok) {
-                const errorData = await response.json().catch(() => ({}));
-                let errorMsg = errorData.message || 'Failed to send reset link';
-                if (Array.isArray(errorData.fieldErrors)) { errorMsg = errorData.fieldErrors.map(e => e.defaultMessage).join(', '); }
-                else if (errorData.errors && typeof errorData.errors === 'object') { errorMsg = Object.values(errorData.errors).join(', '); }
+                let errorMsg = 'Failed to send reset link';
+                try {
+                    const errorData = await response.json();
+                    if (Array.isArray(errorData.fieldErrors)) { errorMsg = errorData.fieldErrors.map(e => e.defaultMessage).join(', '); }
+                    else if (errorData.errors && typeof errorData.errors === 'object') { errorMsg = Object.values(errorData.errors).join(', '); }
+                    else { errorMsg = errorData.message || errorData.error || errorMsg; }
+                } catch(e) {
+                    const raw = await response.text();
+                    errorMsg = raw || errorMsg;
+                }
                 throw new Error(errorMsg);
             }
 
             const data = await response.text(); 
-            setMessage(data || "Reset link sent to your email.");
+            setMessage(data || "Success! Check your email for the reset link.");
 
         } catch (err) {
             setError(err.message || 'Error connecting to the server');

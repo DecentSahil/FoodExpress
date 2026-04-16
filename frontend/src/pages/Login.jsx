@@ -15,7 +15,8 @@ const Login = () => {
         e.preventDefault();
         setError('');
         try {
-            const userData = await login({ email, password });
+            const normalizedEmail = email.trim().toLowerCase();
+            const userData = await login({ email: normalizedEmail, password });
             const role = userData.role?.toUpperCase() || '';
             if (role.includes('ADMIN')) {
                 navigate('/admin');

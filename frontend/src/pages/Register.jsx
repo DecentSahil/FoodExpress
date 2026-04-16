@@ -23,8 +23,9 @@ const Register = () => {
     const handleSendOtp = async (e) => {
         if (e) e.preventDefault();
         setError(''); setSuccessMessage('');
+        const normalizedEmail = email.trim().toLowerCase();
         try {
-            const msg = await sendOtp({ name, email, password });
+            const msg = await sendOtp({ name, email: normalizedEmail, password });
             setSuccessMessage(msg || 'OTP sent to your email.');
             setStep(2);
         } catch (err) {
@@ -34,8 +35,9 @@ const Register = () => {
 
     const handleResendOtp = async () => {
         setError(''); setSuccessMessage('');
+        const normalizedEmail = email.trim().toLowerCase();
         try {
-            const msg = await sendOtp({ name, email, password });
+            const msg = await sendOtp({ name, email: normalizedEmail, password });
             setSuccessMessage(msg || 'OTP resent to your email.');
         } catch (err) {
             setError(err.message || 'Failed to resend OTP');
@@ -47,8 +49,9 @@ const Register = () => {
         setError('');
         const otpString = otp.join('');
         if (otpString.length < 6) { setError('Please enter all 6 digits.'); return; }
+        const normalizedEmail = email.trim().toLowerCase();
         try {
-            await verifyOtpAndRegister({ name, email, password }, otpString);
+            await verifyOtpAndRegister({ name, email: normalizedEmail, password }, otpString);
             setStep(3);
             let timeLeft = 5000;
             const interval = 50;

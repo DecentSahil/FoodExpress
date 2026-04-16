@@ -39,7 +39,7 @@ services:
       - microservices-network
 
   user-service:
-    image: decent8/user-service:1.9
+    image: decent8/user-service:2.1
     container_name: user-service
     ports:
       - "8086:8080"
